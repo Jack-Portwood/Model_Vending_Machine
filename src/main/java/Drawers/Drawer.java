@@ -16,6 +16,30 @@ public class Drawer {
         this.items = new ArrayList<Product>();
     }
 
+    public Code code(){
+        return this.code;
+    }
+
+    public int price(){
+        return this.price;
+    }
+
+    public int size(){
+        return items.size();
+    }
+
+    public void add(Product item){
+         this.items.add(item);
+    }
+
+    public Product vendItem(){
+        return this.items.remove(0);
+    }
+
+
+
+
+
 
 
 }
