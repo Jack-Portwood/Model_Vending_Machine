@@ -1,31 +1,58 @@
 import Coins.Coin;
 import Coins.CoinReturn;
+import Coins.CoinType;
+import Drawers.Code;
 import Drawers.Drawer;
+import Products.Product;
 
-import java.awt.image.renderable.ContextualRenderedImageFactory;
 import java.util.ArrayList;
 
 public class VendingMachine {
 
     private ArrayList<Drawer> drawers;
-    private ArrayList<Coin> coinsEntered;
-    private ArrayList<Coin> coinsReturned;
+    private double credit;
+    private CoinReturn coinReturn;
 
-    public VendingMachine(){
-        this.drawers = new ArrayList<Drawer>();
-        this.coinsEntered = new ArrayList<Coin>();
-        this.coinsReturned = new ArrayList<Coin>();
+    public VendingMachine(ArrayList<Drawer> drawers, CoinReturn coinReturn) {
+        this.drawers = drawers;
+        this.credit = 0.00;
+        this.coinReturn = coinReturn;
     }
 
-    public int size(){
-        return coinsEntered.size();
-    }
 
-    public void addCoinToMachine(Coin item) {
-        if (item.coinType() < 10) {
-            this.coinsReturned.add(item);
-        }else{
-            this.coinsEntered.add(item);
+    public void addCoin(Coin coin) {
+        if (checkCoins(coin)) {
+            this.credit += coin.coinValue();
+        } else {
+            this.coinReturn.add(coin);
         }
     }
+
+    public double getCredit() {
+        return credit;
+    }
+
+    public CoinReturn getCoinReturn() {
+        return coinReturn;
+    }
+
+    public boolean checkCoins(Coin coin) {
+        return coin.getType() != CoinType.ONE && coin.getType() != CoinType.TWO;
+    }
+
+    public Product purchase(Code code){
+        for (Drawer drawer : this.drawers) {
+            if (code == drawer.code() && this.credit >= drawer.price()) {
+                this.credit = 0.0;
+                return drawer.vendItem();
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+
 }

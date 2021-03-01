@@ -7,20 +7,20 @@ import java.util.ArrayList;
 public class Drawer {
 
     private Code code;
-    private int price;
+    private double price;
     private ArrayList<Product> items;
 
-    public Drawer(Code code, int price){
+    public Drawer(Code code, double price){
         this.code = code;
         this.price = price;
         this.items = new ArrayList<Product>();
     }
 
     public Code code(){
-        return this.code;
+        return code;
     }
 
-    public int price(){
+    public double price(){
         return this.price;
     }
 

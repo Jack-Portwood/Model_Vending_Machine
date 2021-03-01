@@ -15,14 +15,14 @@ public class CoinReturn {
         return this.coins.size();
     }
 
-    public void add(Coin item){
-         this.coins.add(item);
+    public void add(Coin coin){
+         this.coins.add(coin);
     }
 
-    public int countTotal(){
-        int total = 0;
-        for(Coin coin : coins){
-            total += coin.coinType();
+    public double countTotal(){
+        double total = 0.0;
+        for(Coin coin : this.coins){
+            total += coin.coinValue();
         }
         return total;
     }

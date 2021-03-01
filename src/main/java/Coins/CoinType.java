@@ -2,20 +2,20 @@ package Coins;
 
 public enum CoinType {
 
-    ONE(1),
-    TWO(2),
-    TEN(10),
-    TWENTY(20),
-    FIFTY(50),
-    ONEPOUND(100);
+    ONE(0.01),
+    TWO(0.02),
+    TEN(0.10),
+    TWENTY(0.20),
+    FIFTY(0.50),
+    ONEPOUND(1.00);
 
-    private int coinVal;
+    private double coinVal;
 
-     CoinType( int coinVal){
+     CoinType( double coinVal){
         this.coinVal = coinVal;
     }
 
-    public int coinVal(){
+    public double coinVal(){
          return coinVal;
     }
 

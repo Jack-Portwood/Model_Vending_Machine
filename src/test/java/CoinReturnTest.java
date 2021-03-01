@@ -36,7 +36,7 @@ public class CoinReturnTest {
     public void totalCoins(){
         coinReturn.add(coin1);
         coinReturn.add(coin2);
-        assertEquals(30, coinReturn.countTotal());
+        assertEquals(0.30, coinReturn.countTotal(),0.1);
     }
 
 

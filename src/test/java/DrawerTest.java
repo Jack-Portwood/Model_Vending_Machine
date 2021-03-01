@@ -38,7 +38,7 @@ public class DrawerTest {
 
     @Test
     public void getPrice(){
-        assertEquals(50, drawer.price());
+        assertEquals(50, drawer.price(), 0.1);
     }
 
     @Test

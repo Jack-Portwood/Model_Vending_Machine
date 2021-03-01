@@ -17,6 +17,6 @@ public class CoinTest {
 
     @Test
     public void getCoinType(){
-        assertEquals(50,coin.coinType());
+        assertEquals(0.50,coin.coinValue(), 0.1);
     }
 }
