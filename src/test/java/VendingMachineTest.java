@@ -74,13 +74,12 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void canGiveChange(){
+    public void canCaluculateChange(){
         vendingMachine.addCoin(coin4);
-        assertEquals(0.50,vendingMachine.getCredit(), 0.1);
-        Crisp item = (Crisp)vendingMachine.purchase(Code.A1);
-        assertEquals("Munch Crunch", item.name());
-        assertEquals(0.30, drawer.price(), 0.01);
-        assertEquals(0.20, vendingMachine.getChange(0.50),0.01);
+        vendingMachine.calculateChange();
+        assertEquals(0.50, vendingMachine.getCoinReturn().countTotal(),0.01);
 
     }
+
+
 }

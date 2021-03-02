@@ -50,17 +50,37 @@ public class VendingMachine {
         return null;
     }
 
-    public double getChange(double credit) {
-        double change = 0.0;
-        for (Drawer drawer : this.drawers) {
-            if (credit > drawer.price()) {
-                change = credit - drawer.price();
+    public void calculateChange() {
+        if (this.credit >= 0) {
+            while (credit > 1.00) {
+                this.coinReturn.add(new Coin(CoinType.ONEPOUND));
+                this.credit -= 1.0;
+            }
+            while (credit >= 0.5) {
+                this.coinReturn.add(new Coin(CoinType.FIFTY));
+                this.credit -= 0.5;
+            }
 
+            while (credit >= 0.2) {
+                this.coinReturn.add(new Coin(CoinType.TWENTY));
+                this.credit -= 0.2;
+            }
+
+            while (credit >= 0.1) {
+                this.coinReturn.add(new Coin(CoinType.TEN));
+                this.credit -= 0.1;
+            }
+
+            while (credit >= 0.05) {
+                this.coinReturn.add(new Coin(CoinType.FIVE));
+                this.credit -= 0.05;
             }
         }
-        return change;
-
     }
+
+
+
+
 
 }
 
