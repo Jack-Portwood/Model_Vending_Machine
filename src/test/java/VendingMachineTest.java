@@ -17,6 +17,7 @@ public class VendingMachineTest {
     Coin coin1;
     Coin coin2;
     Coin coin3;
+    Coin coin4;
     Drawer drawer;
     CoinReturn coinReturn;
     VendingMachine vendingMachine;
@@ -29,6 +30,7 @@ public class VendingMachineTest {
         coin1 = new Coin(CoinType.TEN);
         coin2 = new Coin(CoinType.TWENTY);
         coin3 = new Coin(CoinType.ONE);
+        coin4 = new Coin(CoinType.FIFTY);
         drawer = new Drawer(Code.A1,0.30);
         crisp = new Crisp("Munch Crunch", "Daves");
         drawer.add(crisp);
@@ -71,9 +73,14 @@ public class VendingMachineTest {
 
     }
 
+    @Test
+    public void canGiveChange(){
+        vendingMachine.addCoin(coin4);
+        assertEquals(0.50,vendingMachine.getCredit(), 0.1);
+        Crisp item = (Crisp)vendingMachine.purchase(Code.A1);
+        assertEquals("Munch Crunch", item.name());
+        assertEquals(0.30, drawer.price(), 0.01);
+        assertEquals(0.20, vendingMachine.getChange(0.50),0.01);
 
-
-
-
-
+    }
 }

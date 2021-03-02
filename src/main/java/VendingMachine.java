@@ -50,9 +50,20 @@ public class VendingMachine {
         return null;
     }
 
+    public double getChange(double credit) {
+        double change = 0.0;
+        for (Drawer drawer : this.drawers) {
+            if (credit > drawer.price()) {
+                change = credit - drawer.price();
 
+            }
+        }
+        return change;
 
-
-
+    }
 
 }
+
+
+
+
