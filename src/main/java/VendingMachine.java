@@ -12,11 +12,13 @@ public class VendingMachine {
     private ArrayList<Drawer> drawers;
     private double credit;
     private CoinReturn coinReturn;
+    private boolean exactChange;
 
-    public VendingMachine(ArrayList<Drawer> drawers, CoinReturn coinReturn) {
+    public VendingMachine(ArrayList<Drawer> drawers, CoinReturn coinReturn  ) {
         this.drawers = drawers;
         this.credit = 0.00;
         this.coinReturn = coinReturn;
+        this.exactChange = false;
     }
 
 
@@ -32,6 +34,10 @@ public class VendingMachine {
         return credit;
     }
 
+    public void setExactChange(boolean exactChange){
+        this.exactChange = exactChange;
+    }
+
     public CoinReturn getCoinReturn() {
         return coinReturn;
     }
@@ -40,15 +46,29 @@ public class VendingMachine {
         return coin.getType() != CoinType.ONE && coin.getType() != CoinType.TWO;
     }
 
-    public Product purchase(Code code){
+    public Drawer getDrawer(Code code) {
         for (Drawer drawer : this.drawers) {
-            if (code == drawer.code() && this.credit >= drawer.price()) {
-                this.credit = 0.0;
-                return drawer.vendItem();
+            if (drawer.code() == code) {
+                return drawer;
             }
         }
         return null;
+
     }
+
+    public Product purchase(Code code) {
+        Drawer drawer = getDrawer(code);
+            if(exactChange && drawer.price() != credit) {
+                calculateChange();
+        } else if  (code == drawer.code() && this.credit >= drawer.price()) {
+                this.credit -= drawer.price();
+                calculateChange();
+                return drawer.vendItem();
+            }
+        return null;
+
+    }
+
 
     public void calculateChange() {
         if (this.credit >= 0) {
@@ -76,6 +96,7 @@ public class VendingMachine {
                 this.credit -= 0.05;
             }
         }
+
     }
 
 

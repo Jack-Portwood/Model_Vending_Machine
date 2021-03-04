@@ -31,7 +31,7 @@ public class VendingMachineTest {
         coin2 = new Coin(CoinType.TWENTY);
         coin3 = new Coin(CoinType.ONE);
         coin4 = new Coin(CoinType.FIFTY);
-        drawer = new Drawer(Code.A1,0.30);
+        drawer = new Drawer(Code.A1,0.50);
         crisp = new Crisp("Munch Crunch", "Daves");
         drawer.add(crisp);
         ArrayList<Drawer> drawers = new ArrayList<Drawer>();
@@ -78,6 +78,27 @@ public class VendingMachineTest {
         vendingMachine.addCoin(coin4);
         vendingMachine.calculateChange();
         assertEquals(0.50, vendingMachine.getCoinReturn().countTotal(),0.01);
+
+    }
+
+    @Test
+    public void ExactChangeNeeded(){
+        vendingMachine.setExactChange(true);
+        vendingMachine.addCoin(coin4);
+        Crisp crisp = (Crisp)vendingMachine.purchase(Code.A1);
+        assertNull(crisp);
+        assertEquals(0.50, vendingMachine.getCoinReturn().countTotal(),0.01);
+
+    }
+
+    @Test
+    public void canGetExactChange(){
+        vendingMachine.setExactChange(true);
+        vendingMachine.addCoin(coin4);
+        Crisp crisp = (Crisp)vendingMachine.purchase(Code.A1);
+        assertEquals("Munch Crunch", crisp.name());
+
+
 
     }
 
